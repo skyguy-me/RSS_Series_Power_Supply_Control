@@ -1,5 +1,8 @@
 //Authored by Gokul
 
+ #include "AD5760.h"
+
+
 
 //for AD5760 Controller
 #define MISO 46
@@ -10,16 +13,7 @@
 #define RESET 36
 
 
-
-
-#define MISO_91_3P 22 //SDOUT
-#define MOSI_91_3P 23 //SDIN
-#define SCK_91_3P 24 //CLK
-#define SS_91_3P 25 //Sync
-#define LDAC_91_3P 26 //ldac: 
-#define RESET_91_3P 27 //reset
-#define CLEAR_91_3P 28 //clear 
-
+ 
 
 #define MISO_91_6N 30 //SDOUT
 #define MOSI_91_6N 31 //SDIN
@@ -38,6 +32,14 @@
 #define CLEAR_91_6N_2 48 //clear 
 
 
+#define MISO_91_3P 22 //SDOUT
+#define MOSI_91_3P 23 //SDIN
+#define SCK_91_3P 24//CLK
+#define SS_91_3P 25 //Sync
+#define LDAC_91_3P 26 //ldac: 
+#define RESET_91_3P 27 //reset
+#define CLEAR_91_3P 28 //clear 
+
 
 
 float voltage = 0;
@@ -55,8 +57,8 @@ float covertedFloat;
 
 boolean isConnected = false;
 
-static const int V_refn =  -10;
-static const int V_refp =  10;
+static const int V_refn =  -15;
+static const int V_refp =  15;
 
 
 static const uint32_t WRITE_CONTROL_REGISTER_INTIALIZE = 0B001000000000001010000010;
@@ -125,6 +127,9 @@ void setup() {
 }
 
 void loop() {
+ sendVoltageDACRegister_3P(300);
+
+  
   if (stringComplete)
   {
   
